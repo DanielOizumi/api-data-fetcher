@@ -27,16 +27,33 @@ define('API_DATA_FETCHER_ASSETS_URL', API_DATA_FETCHER_URL . 'assets/dist/');
 // Include main plugin classes
 require_once API_DATA_FETCHER_PATH . 'includes/Autoloader.php';
 
-// Initialize the plugin
-class API_Data_Fetcher_Plugin
-{
+// Hook into the 'plugins_loaded' action to load translations.
+function api_data_fetcher_load_textdomain() {
+  load_plugin_textdomain('api-data-fetcher', false, API_DATA_FETCHER_PATH . 'languages');
+}
+add_action('plugins_loaded', 'api_data_fetcher_load_textdomain');
 
-  public function __construct()
-  {
+// Initialize the plugin
+class API_Data_Fetcher_Plugin {
+
+  private static $instance = null;
+
+  private function __construct() {
+    add_action('plugins_loaded', [$this, 'initialize']);
+  }
+
+  public static function get_instance() {
+    if (self::$instance === null) {
+      self::$instance = new self();
+    }
+    return self::$instance;
+  }
+
+  public function initialize() {
     // Register the autoloader
     \API_Data_Fetcher\Autoloader::register();
 
-    // Initialize all classes
+    // Initialize settings class
     new \API_Data_Fetcher\API_Data_Fetcher_Settings();
   }
 }
@@ -46,4 +63,4 @@ register_activation_hook(__FILE__, ['API_Data_Fetcher\API_Data_Fetcher_Activator
 register_deactivation_hook(__FILE__, ['API_Data_Fetcher\API_Data_Fetcher_Deactivator', 'deactivate']);
 
 // Initialize the plugin
-new API_Data_Fetcher_Plugin();
+API_Data_Fetcher_Plugin::get_instance();
