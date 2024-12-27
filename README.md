@@ -24,7 +24,7 @@ For any other OS, the installation is straightforward. Follow the [DDEV installa
 
 ### Clone the Repository:
 ```bash
-git clone https://github.com/Repository/WordPressProject.git
+git clone https://github.com/DanielOizumi/api-data-fetcher.git
 ```
 
 ### Setup DDEV for WordPress:
