@@ -1,0 +1,41 @@
+# Wordpress - ignore core, configuration, examples, uploads and logs.
+# https://github.com/github/gitignore/blob/main/WordPress.gitignore
+
+# Ignore log files and databases
+*.log
+# *.sql
+*.sqlite
+*.sql.gz
+*.sql.bz2
+*.swp
+
+# Ignore configuration
+wp-config*
+.htaccess
+
+# Ignore DS_Store
+.DS_Store
+
+# Ignore Zone.Identifier
+*Zone.Identifier
+
+# ignore everything in the "wp-content" directory, except:
+# "mu-plugins", "plugins", "themes" directory
+wp-content/*
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
+
+# Ignore plugin
+/wp-content/plugins/hello.php
+
+# Ignore themes
+/wp-content/themes/twenty*/
+
+# Ignore everything in the .ddev directory, except:
+# "config.yaml"
+.ddev/*
+!.ddev/config.yaml
+
+# ignore node dependency directories
+node_modules/
