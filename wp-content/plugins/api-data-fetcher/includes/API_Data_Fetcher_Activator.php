@@ -4,7 +4,12 @@ namespace API_Data_Fetcher;
 
 class API_Data_Fetcher_Activator
 {
-  public static function activate()
+  /**
+   * Activates the plugin, checks WooCommerce dependency, schedules cron job, and flushes rewrite rules.
+   *
+   * @return void
+   */
+  public static function activate(): void
   {
     // Check if WooCommerce is active and interrupt the activation process
     if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {

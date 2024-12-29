@@ -23,7 +23,7 @@ require_once API_DATA_FETCHER_PATH . 'includes/Autoloader.php';
 // Initialize the plugin
 class API_Data_Fetcher_Plugin
 {
-  private static $instance = null;
+  private static ?self $instance = null;
 
   private function __construct()
   {
@@ -34,7 +34,7 @@ class API_Data_Fetcher_Plugin
     add_action('init', [$this, 'plugins_loaded_initialize']);
   }
 
-  public static function get_instance()
+  public static function get_instance(): self
   {
     if (self::$instance === null) {
       self::$instance = new self();
@@ -42,7 +42,7 @@ class API_Data_Fetcher_Plugin
     return self::$instance;
   }
 
-  public function initialize()
+  public function initialize(): void
   {
     // Register the autoloader
     \API_Data_Fetcher\Autoloader::register();
@@ -51,7 +51,7 @@ class API_Data_Fetcher_Plugin
     new \API_Data_Fetcher\API_Data_Fetcher_Settings();
   }
 
-  function plugins_loaded_initialize()
+  public function plugins_loaded_initialize(): void
   {
     // Retrieves the version from the plugin header
     require_once ABSPATH . 'wp-admin/includes/plugin.php';

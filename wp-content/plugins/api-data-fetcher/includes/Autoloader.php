@@ -10,8 +10,10 @@ class Autoloader
 {
   /**
    * Register the autoloader function.
+   *
+   * @return void
    */
-  public static function register()
+  public static function register(): void
   {
     spl_autoload_register([__CLASS__, 'autoload']);
   }
@@ -20,8 +22,10 @@ class Autoloader
    * Autoload classes in the plugin.
    *
    * @param string $class_name The name of the class to load.
+   * 
+   * @return void
    */
-  public static function autoload($class_name)
+  public static function autoload(string $class_name): void
   {
     // Check if the class is part of the plugin namespace
     if (strpos($class_name, 'API_Data_Fetcher') === 0) {
