@@ -32,7 +32,10 @@ class API_Data_Fetcher_Plugin
     $this->initialize();
 
     // Hook into the 'init' action to load plugin version
-    add_action('init', [$this, 'plugins_loaded_initialize']);
+    add_action('init', [$this, 'init_initialize']);
+
+    // Register the widget
+    add_action('widgets_init', [$this, 'widgets_init_initialize']);
   }
 
   public static function get_instance(): self
@@ -60,9 +63,10 @@ class API_Data_Fetcher_Plugin
     // Initialize settings class if necessary
     new \API_Data_Fetcher\API_Data_Fetcher_Settings();
     new \API_Data_Fetcher\API_Data_Fetcher_Cron_Handler();
+    new \API_Data_Fetcher\API_Data_Fetcher_Widget();
   }
 
-  public function plugins_loaded_initialize(): void
+  public function init_initialize(): void
   {
     // Retrieves the version from the plugin header
     require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -71,6 +75,11 @@ class API_Data_Fetcher_Plugin
 
     // Define constants
     define('API_DATA_FETCHER_VERSION', $plugin_version);
+  }
+
+  public function widgets_init_initialize(): void
+  {
+    register_widget('\API_Data_Fetcher\API_Data_Fetcher_Widget');
   }
 }
 

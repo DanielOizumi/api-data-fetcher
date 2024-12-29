@@ -43,7 +43,8 @@ class API_Data_Fetcher_Settings
     $user_ordered_list = $ordered_list_from_api['data'];
 
     // Include template for the account tab content
-    include plugin_dir_path(__FILE__) . '../templates/my-account-tab.php';
+
+    include API_DATA_FETCHER_PATH . 'templates/my-account-tab.php';
   }
 
   public function handle_form_submission(): void

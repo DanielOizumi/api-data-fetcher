@@ -32,5 +32,7 @@ class API_Data_Fetcher_Cron_Handler
         error_log('Data fetched successfully for user ' . $user->ID);
       }
     }
+
+    error_log('Cron job finished');
   }
 }

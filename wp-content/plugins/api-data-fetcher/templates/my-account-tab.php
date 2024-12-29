@@ -34,19 +34,8 @@
 
 <h2><?php esc_html_e('Fetched Data', 'api-data-fetcher'); ?></h2>
 <div>
-  <?php if (count($user_ordered_list)): ?>
-    <ul>
-      <?php
-      foreach ($user_ordered_list as $item) :
-        if (!empty($item)) :
-      ?>
-          <li><?php echo esc_html(trim($item)); ?></li>
-      <?php
-        endif;
-      endforeach;
-      ?>
-    </ul>
-  <?php else : ?>
-    <p><?php esc_html_e('No list found.', 'api-data-fetcher'); ?></p>
-  <?php endif; ?>
+  <?php
+  // Include the list template
+  include(API_DATA_FETCHER_PATH . 'templates/template-api-data-fetcher-list.php');
+  ?>
 </div>
