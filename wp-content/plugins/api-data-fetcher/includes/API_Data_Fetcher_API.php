@@ -10,20 +10,20 @@ class API_Data_Fetcher_API
   public function get_or_fetch_user_data(int $user_id): array
   {
     if (!get_userdata($user_id)) {
-      return $this->generate_response(false, 'Invalid or non-existent user ID');
+      return $this->generate_response(false, __('Invalid or non-existent user ID', 'api-data-fetcher'));
     }
 
     $list_manager = new API_Data_Fetcher_List_Manager();
     $user_list = $list_manager->retrieve_list($user_id);
 
     if (empty($user_list)) {
-      return $this->generate_response(false, 'No list exists for this user');
+      return $this->generate_response(false, __('No list exists for this user', 'api-data-fetcher'));
     }
 
     $cached_data = get_transient(self::TRANSIENT_KEY_BASE . $user_id);
 
     if ($cached_data && $this->data_is_equal($cached_data, $user_list)) {
-      return $this->generate_response(true, 'Data is the same, returning cached response', $cached_data);
+      return $this->generate_response(true, __('Data is the same, returning cached response', 'api-data-fetcher'), $cached_data);
     }
 
     return $this->post_to_api($user_id, $user_list);
@@ -47,14 +47,14 @@ class API_Data_Fetcher_API
 
     // Validate the API response to ensure 'json' exists and is an array
     if (json_last_error() !== JSON_ERROR_NONE || !isset($api_data['json']) || !is_array($api_data['json'])) {
-      return $this->generate_response(false, 'Invalid API response: JSON array missing or malformed');
+      return $this->generate_response(false, __('Invalid API response: JSON array missing or malformed', 'api-data-fetcher'));
     }
 
     // Optional: Cache the valid API data
     set_transient(self::TRANSIENT_KEY_BASE . $user_id, $api_data['json'], CACHE_EXPIRY);
 
     // Return the validated json data
-    return $this->generate_response(true, 'Data fetched and cached successfully', $api_data['json']);
+    return $this->generate_response(true, __('Data fetched and cached successfully', 'api-data-fetcher'), $api_data['json']);
   }
 
   private function generate_response(bool $status, string $message, ?array $data = null): array

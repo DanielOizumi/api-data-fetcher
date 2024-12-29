@@ -34,7 +34,13 @@ class API_Data_Fetcher_Settings
     $user_id = get_current_user_id();
     $user_order = $this->list_manager->retrieve_list_order($user_id);
     $user_list = $this->list_manager->retrieve_list($user_id);
-    $user_ordered_list = $this->list_manager->retrieve_ordered_list($user_id);
+    $ordered_list_from_api = $this->list_manager->retrieve_ordered_list_from_api($user_id);
+
+    if ($ordered_list_from_api['status'] === false) {
+      wc_add_notice($ordered_list_from_api['message'], 'error');
+    }
+
+    $user_ordered_list = $ordered_list_from_api['data'];
 
     // Include template for the account tab content
     include plugin_dir_path(__FILE__) . '../templates/my-account-tab.php';

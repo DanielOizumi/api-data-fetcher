@@ -87,21 +87,23 @@ class API_Data_Fetcher_List_Manager
    * @param int $user_id The user ID.
    * @return array|null The ordered list as an array or null if not found.
    */
-  public function retrieve_ordered_list(int $user_id): ?array
+  public function retrieve_ordered_list_from_api(int $user_id): ?array
   {
     if (!get_userdata($user_id)) {
       return null;
     }
 
     $order = $this->retrieve_list_order($user_id);
-    $list = $this->retrieve_list($user_id);
+
+    $api_fetcher = new API_Data_Fetcher_API();
+    $response = $api_fetcher->get_or_fetch_user_data($user_id);
 
     if ($order === 'desc') {
-      rsort($list);
+      rsort($response['data']);
     } else {
-      sort($list);
+      sort($response['data']);
     }
 
-    return $list;
+    return $response;
   }
 }
