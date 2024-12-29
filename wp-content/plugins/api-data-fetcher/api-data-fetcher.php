@@ -59,6 +59,7 @@ class API_Data_Fetcher_Plugin
 
     // Initialize settings class if necessary
     new \API_Data_Fetcher\API_Data_Fetcher_Settings();
+    new \API_Data_Fetcher\API_Data_Fetcher_Cron_Handler();
   }
 
   public function plugins_loaded_initialize(): void

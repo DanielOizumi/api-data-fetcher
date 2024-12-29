@@ -22,7 +22,7 @@ class API_Data_Fetcher_API
 
     $cached_data = get_transient(self::TRANSIENT_KEY_BASE . $user_id);
 
-    if ($cached_data && $this->data_is_equal($cached_data, $user_list)) {
+    if ($cached_data !== false && $this->data_is_equal($cached_data, $user_list)) {
       return $this->generate_response(true, __('Data is the same, returning cached response', 'api-data-fetcher'), $cached_data);
     }
 
@@ -38,7 +38,6 @@ class API_Data_Fetcher_API
     ]);
 
     if (is_wp_error($response)) {
-      error_log($response->get_error_message());
       return $this->generate_response(false, $response->get_error_message());
     }
 
@@ -50,7 +49,7 @@ class API_Data_Fetcher_API
       return $this->generate_response(false, __('Invalid API response: JSON array missing or malformed', 'api-data-fetcher'));
     }
 
-    // Optional: Cache the valid API data
+    // Cache the valid API data
     set_transient(self::TRANSIENT_KEY_BASE . $user_id, $api_data['json'], CACHE_EXPIRY);
 
     // Return the validated json data
@@ -64,6 +63,6 @@ class API_Data_Fetcher_API
 
   private function data_is_equal(array $cached_data, array $user_list): bool
   {
-    return json_encode($cached_data) === json_encode($user_list);
+    return serialize($cached_data) === serialize($user_list);
   }
 }
