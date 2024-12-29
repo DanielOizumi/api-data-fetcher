@@ -1,0 +1,81 @@
+/*
+  Project Styles
+  --------------
+  This CSS file defines styles for various elements used in the project. It includes
+  mixins for layout and common styling, button styles, text links, tags, and highlights.
+
+  Styles:
+  - Wrapper: Layout mixin for creating centered content with padding.
+  - Buttons: Mixins and classes for creating various types of buttons.
+  - Arrow Button: Styles for arrow buttons with different color variations.
+  - Text Link: Mixin and class for creating text links with hover effects.
+  - Tags: Mixin and class for creating styled tags.
+  - Highlights: Styles for text highlights with different color options.
+
+  Note:
+  - Some styles may depend on pre-defined variables and mixins.
+  - Additional styles specific to components or pages may be defined elsewhere.
+*/
+
+@use "../_vars" as vars;
+@use "../mixins/rwd" as rwd;
+@use "_typography" as typography;
+
+/* -----------------------------------------------------------------------------
+ * Wrapper
+ * ----------------------------------------------------------------------------- */
+@mixin wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.saucal-wrapper {
+  @include wrapper;
+
+  &.center {
+    text-align: center;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Main Content
+ * ----------------------------------------------------------------------------- */
+#saucal-main-content {
+  overflow: hidden;
+  margin-top: 8rem;
+  padding: 0 vars.$mobile-padding;
+
+  @include rwd.for-bp("tablet") {
+    margin-top: 9.8rem;
+    padding: 0 vars.$tablet-padding;
+  }
+
+  @include rwd.for-bp("desktop") {
+    margin-top: 12rem;
+    padding: 0 vars.$desktop-padding;
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Heading
+ * ----------------------------------------------------------------------------- */
+h1 {
+  @include typography.heading-1;
+}
+
+h2 {
+  @include typography.heading-2;
+}
+
+h3 {
+  @include typography.heading-3;
+}
+
+h4 {
+  @include typography.heading-4;
+}
+
+h5 {
+  @include typography.heading-5;
+}

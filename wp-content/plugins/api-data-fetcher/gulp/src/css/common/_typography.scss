@@ -1,0 +1,81 @@
+/*
+  Typography and Text Styles
+  --------------------------
+  This CSS file defines typography and text-related styles for the project. It includes mixins
+  and classes for defining font sizes, font weights, line heights, and other text properties.
+
+  Note:
+  - Some styles may depend on pre-defined variables and mixins.
+  - Additional text styles may be defined in separate files or components.
+*/
+
+@use "_vars" as vars;
+@use "../mixins/rwd" as rwd;
+
+@mixin primary-typography($size: 2.0rem, $weight: 400, $height: 2.9rem) {
+  font-family: vars.$font-primary;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+  font-style: normal;
+}
+
+@mixin secondary-typography($size: 1.8rem, $height: 1.8rem, $spacing: normal) {
+  font-family: vars.$font-secondary;
+  font-size: $size;
+  font-weight: 400;
+  line-height: $height;
+  letter-spacing: $spacing;
+  font-style: normal;
+}
+
+@mixin tertiary-typography($size: 1.3rem, $weight: 500, $height: 1.95rem) {
+  font-family: vars.$font-tertiary;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+  font-style: normal;
+}
+
+/* Heading Styles */
+/* #region Headings */
+@mixin heading-1 {
+  @include secondary-typography(3.2rem, 3.52rem, 0.064rem);
+
+  @include rwd.for-bp("desktop") {
+    @include secondary-typography(6rem, 6.6rem,  0.12rem);
+  }
+}
+
+@mixin heading-2 {
+  @include secondary-typography(2.8rem, 3.08rem, 0.056rem);
+
+  @include rwd.for-bp("desktop") {
+    @include secondary-typography(5.2rem, 5.72rem, 0.104rem);
+  }
+}
+
+@mixin heading-3 {
+  @include secondary-typography(2.4rem, 2.64rem, 0.048rem);
+
+  @include rwd.for-bp("desktop") {
+    @include secondary-typography(3.6rem, 3.96rem);
+  }
+}
+
+@mixin heading-4 {
+  @include secondary-typography(2rem, 2.2rem, 0.04rem);
+
+  @include rwd.for-bp("desktop") {
+    @include secondary-typography(3.6rem, 3.96rem, 0.072rem);
+  }
+}
+
+@mixin heading-5 {
+  @include secondary-typography(1.8rem, 1.98rem, 0.036rem);
+
+  @include rwd.for-bp("desktop") {
+    @include secondary-typography(2rem, 2.2rem, normal);
+  }
+}
+/* #endregion */

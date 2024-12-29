@@ -1,0 +1,63 @@
+/*
+  Project Variables
+  -----------------
+  This file contains global variables and settings for the project, including file paths,
+  colors, responsive design breakpoints, Z-indexes, measures, time-related settings, and fonts.
+
+  Note:
+  - These variables provide a centralized way to manage project-wide settings.
+  - Adjust as needed to maintain consistency and meet project requirements.
+*/
+
+// Folders
+$assetsFolder: "/wp-content/themes/rmh/gulp/dist/assets";
+
+// Colors
+$colors: (
+  "dark-brown": #191010,
+  "brown": #261B07,
+  "light-brown": #533A0E,
+  "burnt-red": #A63C06,
+  "dark-green": #107025,
+  "green": #008000,
+  "secondary-green": #B5E9AD,
+  "primary-yellow": #FFB800,
+  "yellow": #FFD140,
+  "secondary-yellow": #F8DFA3,
+  "pastel-yellow": #FFDB7F,
+  "black": #000000,
+  "background": #F4F2F0,
+  "mid-grey": #CFCFCF,
+  "light-grey": #FFFDFD,
+  "lighter-grey": #C7C7C7,
+  "white": #FFFFFF,
+  "gradient-brown": linear-gradient(90deg, #351B14 0%, #180401 100%),
+);
+
+// Responsive Design Breakpoints
+$media-query-breakpoints: (
+  mobile-sm: 320px,
+  mobile: 375px, // selected breakpoint
+  mobile-lg: 480px,
+  mobile-hd: 640px,
+  tablet: 768px, // selected breakpoint
+  tablet-lg: 1024px,
+  desktop: 1280px, // selected breakpoint
+  desktop-md: 1440px,
+  desktop-lg: 1600px,
+  desktop-hd: 1920px,
+  desktop-4k: 2560px,
+);
+
+// Measures
+$mobile-padding: 1.2rem;
+$tablet-padding: 4rem;
+$desktop-padding: 8rem;
+
+// Time
+$transTime: 240ms;
+
+// Fonts
+$font-primary: "Karla", sans-serif;
+$font-secondary: "TGSPerfectCondensed", sans-serif;
+$font-tertiary: "Outfit", sans-serif;
