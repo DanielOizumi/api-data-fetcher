@@ -29,7 +29,7 @@ class API_Data_Fetcher_Activator
 
     // Schedule the cron job if not already scheduled
     if (!wp_next_scheduled('api_data_fetcher_cron')) {
-      wp_schedule_event(time(), 'hourly', 'api_data_fetcher_cron');
+      wp_schedule_event(time(), 'every_custom_interval', 'api_data_fetcher_cron');
     }
   }
 }

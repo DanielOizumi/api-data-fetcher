@@ -16,6 +16,7 @@ if (!defined('ABSPATH')) {
 define('API_DATA_FETCHER_PATH', plugin_dir_path(__FILE__));
 define('API_DATA_FETCHER_URL', plugin_dir_url(__FILE__));
 define('API_DATA_FETCHER_ASSETS_URL', API_DATA_FETCHER_URL . 'assets/dist/');
+define('CACHE_EXPIRY', 60 * 60); // 1 hour
 
 // Include main plugin classes
 require_once API_DATA_FETCHER_PATH . 'includes/Autoloader.php';
@@ -46,6 +47,15 @@ class API_Data_Fetcher_Plugin
   {
     // Register the autoloader
     \API_Data_Fetcher\Autoloader::register();
+
+    // Register custom cron schedule filter
+    add_filter('cron_schedules', function ($schedules) {
+      $schedules['every_custom_interval'] = [
+        'interval' => CACHE_EXPIRY,
+        'display'  => __('Custom Interval')
+      ];
+      return $schedules;
+    });
 
     // Initialize settings class if necessary
     new \API_Data_Fetcher\API_Data_Fetcher_Settings();
