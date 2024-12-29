@@ -1,37 +1,62 @@
 <?php
-$user_id = get_current_user_id();
-$element_list = get_user_meta($user_id, '_element_list', true);
+
+/**
+ * Template for the API Data Fetcher tab in My Account.
+ * This template is used to display the form for entering the list of items.
+ * It also displays the fetched data from the API.
+ */
 ?>
 
-<h2><?php esc_html_e('API Data Fetcher Settings', 'api-data-fetcher'); ?></h2>
+<?php if (isset($_GET['status'])): ?>
+  <div class="notification-message">
+    <?php if ($_GET['status'] == 0): ?>
+      <div class="notification-error" <?php echo esc_html($_GET['error_message']); ?></div>
+      <?php elseif ($_GET['status'] == 1): ?>
+        <div class="notification-success"><?php echo esc_html_e('Your list was succesfuly saved.', 'api-data-fetcher'); ?></div>
+      <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
-<form method="post" action="">
-    <?php wp_nonce_field('api_data_fetcher_nonce', 'api_data_fetcher_nonce'); ?>
+    <h2><?php esc_html_e('API Data Fetcher Settings', 'api-data-fetcher'); ?></h2>
 
-    <label for="element_list"><?php esc_html_e('Enter List of Elements', 'api-data-fetcher'); ?></label>
-    <textarea 
-        id="element_list" 
-        name="element_list" 
-        rows="10" 
-        cols="50"
-    ><?php echo esc_textarea($element_list); ?></textarea>
+    <form id="list_form" method="post" action="<?php echo esc_url(wc_get_account_endpoint_url('api-data-fetcher')); ?>">
+      <input type="hidden" name="api_data_fetcher_nonce" value="<?php echo wp_create_nonce('api_data_fetcher_nonce'); ?>">
+      <input type="hidden" name="action" value="save_api_data_fetcher_settings">
 
-    <button type="submit" name="save_api_data_fetcher_settings">
-        <?php esc_html_e('Save Settings', 'api-data-fetcher'); ?>
-    </button>
-</form>
+      <div>
+        <label for="user_items_list"><?php esc_html_e('Enter List of Elements', 'api-data-fetcher'); ?></label>
+        <p><?php esc_html_e('Please list each item on a separate line. For example:', 'api-data-fetcher'); ?><br><?php esc_html_e("Item 1", 'api-data-fetcher'); ?><br><?php esc_html_e("Item 2", 'api-data-fetcher'); ?><br><?php esc_html_e("Item 3", 'api-data-fetcher'); ?></p>
+        <textarea id="user_items_list" name="user_items_list" rows="10" cols="50"><?php echo esc_textarea($user_items_list); ?></textarea>
+      </div>
+      <div>
+        <button type="submit" name="save_api_data_fetcher_settings">
+          <?php esc_html_e('Save Settings', 'api-data-fetcher'); ?>
+        </button>
+      </div>
+    </form>
 
-
-<h2><?php esc_html_e('Fetched Data', 'api-data-fetcher'); ?></h2>
-<div>
-  <?php
-  // Fetch and display data from the API
-  //$api_data_fetcher_api = new API_Data_Fetcher\API_Data_Fetcher_API();
-  //$api_data = $api_data_fetcher_api->fetch_data($element_list);
-  if ($api_data) {
-    echo '<pre>' . print_r($api_data, true) . '</pre>';
-  } else {
-    echo '<p>' . esc_html__('No data found.', 'api-data-fetcher') . '</p>';
-  }
-  ?>
-</div>
+    <h2><?php esc_html_e('Fetched Data', 'api-data-fetcher'); ?></h2>
+    <div>
+      <?php if ($user_items_list): ?>
+        <div>
+          <?php if (!empty($user_items_list)) : ?>
+            <ul>
+              <?php
+              $items = explode("\n", $user_items_list);
+              foreach ($items as $item) :
+                if (!empty($item)) :
+              ?>
+                  <li><?php echo esc_html(trim($item)); ?></li>
+              <?php
+                endif;
+              endforeach;
+              ?>
+            </ul>
+          <?php else : ?>
+            <p><?php esc_html_e('No list found.', 'api-data-fetcher'); ?></p>
+          <?php endif; ?>
+        </div>
+      <?php else : ?>
+        <p><?php esc_html_e('No list found.', 'api-data-fetcher'); ?></p>
+      <?php endif; ?>
+    </div>

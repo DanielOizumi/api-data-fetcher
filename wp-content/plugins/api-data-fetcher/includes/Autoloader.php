@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Autoloader class for the plugin.
+ */
+
 namespace API_Data_Fetcher;
 
 class Autoloader

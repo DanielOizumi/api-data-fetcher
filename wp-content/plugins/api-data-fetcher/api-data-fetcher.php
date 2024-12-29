@@ -27,10 +27,11 @@ class API_Data_Fetcher_Plugin
 
   private function __construct()
   {
-    // Hook into the 'plugins_loaded' action to load translations and initialize the plugin
+    // Initialize classes
     $this->initialize();
 
-    add_action('plugins_loaded', [$this, 'plugins_loaded_initialize']);
+    // Hook into the 'init' action to load plugin version
+    add_action('init', [$this, 'plugins_loaded_initialize']);
   }
 
   public static function get_instance()
@@ -67,4 +68,4 @@ register_activation_hook(__FILE__, ['\API_Data_Fetcher\API_Data_Fetcher_Activato
 register_deactivation_hook(__FILE__, ['\API_Data_Fetcher\API_Data_Fetcher_Deactivator', 'deactivate']);
 
 // Initialize the plugin
-//API_Data_Fetcher_Plugin::get_instance();
+API_Data_Fetcher_Plugin::get_instance();
