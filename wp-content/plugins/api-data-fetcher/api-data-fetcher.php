@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 define('API_DATA_FETCHER_PATH', plugin_dir_path(__FILE__));
 define('API_DATA_FETCHER_URL', plugin_dir_url(__FILE__));
-define('API_DATA_FETCHER_ASSETS_URL', API_DATA_FETCHER_URL . 'assets/dist/');
+define('API_DATA_FETCHER_ASSETS_URL', API_DATA_FETCHER_URL . 'gulp/dist/');
 define('CACHE_EXPIRY', 60 * 60); // 1 hour
 
 // Include main plugin classes
@@ -36,6 +36,9 @@ class API_Data_Fetcher_Plugin
 
     // Register the widget
     add_action('widgets_init', [$this, 'widgets_init_initialize']);
+
+    // Enqueue the plugin's assets
+    add_action('wp_enqueue_scripts', [$this, 'enqueue_api_data_fetcher_assets']);
   }
 
   public static function get_instance(): self
@@ -80,6 +83,12 @@ class API_Data_Fetcher_Plugin
   public function widgets_init_initialize(): void
   {
     register_widget('\API_Data_Fetcher\API_Data_Fetcher_Widget');
+  }
+
+  public function enqueue_api_data_fetcher_assets(): void
+  {
+    // Enqueue the plugin's CSS
+    wp_enqueue_style('api-data-fetcher', API_DATA_FETCHER_ASSETS_URL . 'css/style.css', [], API_DATA_FETCHER_VERSION, 'all');
   }
 }
 

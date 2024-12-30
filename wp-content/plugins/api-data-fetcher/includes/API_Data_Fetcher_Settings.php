@@ -15,6 +15,8 @@ class API_Data_Fetcher_Settings
     add_action('woocommerce_account_api-data-fetcher_endpoint', [$this, 'display_account_tab_content']);
     add_action('template_redirect', [$this, 'handle_form_submission'], 10);
     add_action('login_message', [$this, 'handle_login_error_message']);
+
+    add_filter('the_title', [$this, 'custom_api_data_fetcher_title'], 10, 2);
   }
 
   public function add_custom_endpoint(): void
@@ -24,12 +26,22 @@ class API_Data_Fetcher_Settings
 
   public function add_account_tab(array $items): array
   {
+    // Add a custom tab to the menu
     $items['api-data-fetcher'] = __('API Data Fetcher', 'api-data-fetcher');
+
+    // Move the custom tab before the "Logout" option
+    $logout = $items['customer-logout'];
+    unset($items['customer-logout']);
+
+    // Re-insert "Logout" at the end of the array after the custom tab
+    $items['customer-logout'] = $logout;
+
     return $items;
   }
 
   public function display_account_tab_content(): void
   {
+
     // Retrieve the list for the logged-in user
     $user_id = get_current_user_id();
     $user_order = $this->list_manager->retrieve_list_order($user_id);
@@ -45,6 +57,15 @@ class API_Data_Fetcher_Settings
     // Include template for the account tab content
 
     include API_DATA_FETCHER_PATH . 'templates/my-account-tab.php';
+  }
+
+  public function custom_api_data_fetcher_title($title, $post_id)
+  {
+    if (strpos($_SERVER['REQUEST_URI'], 'api-data-fetcher') !== false) {
+      return __('API Data Fetcher Settings', 'api-data-fetcher');
+    }
+
+    return $title;
   }
 
   public function handle_form_submission(): void

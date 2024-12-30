@@ -1,0 +1,30 @@
+.api-data-fetcher-wrapper {
+  form {
+    .form-row {
+      margin: 0 0 1.41575em;
+
+      label {
+        display: block;
+        width: 100%;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .api-data-fetcher-list {
+    margin-top: 4rem;
+
+    ul {
+      margin: 0 0 0 1rem;
+    }
+  }
+}
+
+.widget-area {
+  div.widget_api_data_fetcher_widget {
+    ul {
+      list-style: disc;
+      margin: 0 0 0 1rem;
+    }
+  }
+}
