@@ -104,4 +104,9 @@ class API_Data_Fetcher_API
       $index++;
     }
   }
+
+  public function clear_user_transients(int $user_id): void
+  {
+    $this->clear_chunks(self::TRANSIENT_KEY_BASE . $user_id);
+  }
 }
