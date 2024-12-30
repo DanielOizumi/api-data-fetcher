@@ -1,0 +1,41 @@
+{
+  "name": "saucal-wp",
+  "title": "Saucal theme with gulp and gulp-sass.",
+  "version": "1.0.0",
+  "author": "Daniel saucal <daniel.oizumi@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "license": "LGPL",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^6.8.1",
+    "gulp": "^5.0.0",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-dart-sass": "^1.1.0",
+    "gulp-flatten": "^0.4.0",
+    "gulp-if": "^3.0.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "js-cookie": "^2.2.0",
+    "minimist": "^1.2.0",
+    "require-dir": "^1.2.0",
+    "sharp": "^0.33.5",
+    "style-loader": "^3.3.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.85.0",
+    "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "dependencies": {
+    "jquery-mask-plugin": "^1.14.16",
+    "swiper": "^11.1.14"
+  }
+}

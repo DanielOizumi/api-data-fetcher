@@ -1,0 +1,51 @@
+# Copyright (C) 2024 Daniel Oizumi
+# This file is distributed under the same license as the API Data Fetcher plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: API Data Fetcher 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/api-data-fetcher\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-27T15:52:03-03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: api-data-fetcher\n"
+
+#. Plugin Name of the plugin
+#: api-data-fetcher.php
+#: includes/API_Data_Fetcher_Settings.php:23
+msgid "API Data Fetcher"
+msgstr ""
+
+#. Description of the plugin
+#: api-data-fetcher.php
+msgid "Fetches data from an API, caches it, and displays it in a widget."
+msgstr ""
+
+#. Author of the plugin
+#: api-data-fetcher.php
+msgid "Daniel Oizumi"
+msgstr ""
+
+#: templates/my-account-tab.php:6
+msgid "API Data Fetcher Settings"
+msgstr ""
+
+#: templates/my-account-tab.php:11
+msgid "Enter List of Elements"
+msgstr ""
+
+#: templates/my-account-tab.php:20
+msgid "Save Settings"
+msgstr ""
+
+#: templates/my-account-tab.php:25
+msgid "Fetched Data"
+msgstr ""
+
+#: templates/my-account-tab.php:34
+msgid "No data found."
+msgstr ""

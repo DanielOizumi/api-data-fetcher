@@ -1,0 +1,19 @@
+// --------------------------------
+// RESPONSIVE DESIGN MIXIN
+// --------------------------------
+
+// _rwd.scss
+@use "sass:map";
+@use "_vars" as vars;
+
+@mixin for-bp($bp) {
+  @media (min-width: map.get(vars.$media-query-breakpoints, $bp)) {
+    @content;
+  }
+}
+
+@mixin for-print() {
+  @media print {
+    @content;
+  }
+}

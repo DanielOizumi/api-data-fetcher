@@ -1,0 +1,36 @@
+/*
+  Main Styles Entry
+  ----------------
+  This is the main SCSS entry file that imports various SCSS modules required for the project.
+  It includes global variables, responsive design mixins, color definitions, and common styles.
+  Additionally, it imports any 'shame' file, which may contain quick fixes or non-ideal code.
+
+  Note:
+  - This file serves as the entry point for building your project's styles.
+  - Ensure that all required styles are imported and organized appropriately.
+*/
+
+// Global Variables
+//@use "_vars";
+
+// Mixins and Color and Sizes
+//@use "mixins/_rwd";
+//@use "mixins/_colors";
+
+// Common Styles
+/*
+@use "common/_fonts";
+@use "common/_normalize";
+@use "common/_global";
+@use "common/_typography";
+@use "common/_helpers";
+*/
+
+// Quick Fixes or Non-Ideal Code (Use Sparingly)
+//@use "_shame";
+
+// Components
+@use "components/my-account-api-data-fetcher";
+
+// Atoms
+//@use "atoms/list";

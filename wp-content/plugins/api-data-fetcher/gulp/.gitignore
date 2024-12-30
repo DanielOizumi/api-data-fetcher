@@ -1,0 +1,13 @@
+# I'm going to push dist just for this task's purpose. Normally I would ignore it.
+#dist
+node_modules
+.yarn
+.uneets-trash/**/*
+!.uneets-trash/.gitkeep
+
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

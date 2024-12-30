@@ -1,0 +1,34 @@
+@use "sass:map";
+@use "sass:color";
+@use "sass:math";
+@use "_vars" as vars;
+
+
+@function get-color($color-name) {
+  @return map.get(vars.$colors, $color-name);
+}
+
+// use "get-color" like this:
+// background-color: get-color("fionta-blue");
+
+// Thanks!: https://codepen.io/dread-design/pen/dOGVXM
+@function get-contrast-color($color) {
+  // Parse RGB by isolating each color
+  $red: color.red($color);
+  $green: color.green($color);
+  $blue: color.blue($color);
+  // Compute the perceptive luminance, keeping
+  // in mind that the human eye favors green.
+  $l: 1 - math.div((0.299 * $red + 0.587 * $green + 0.114 * $blue), 255);
+
+  /* arguably this should be 0.50, but testing out various colors, this seemed to be the best so far. */
+  @if ($l < 0.41) {
+    // if the luminance is less than 0.5 return black
+    @return #000000;
+  }
+
+  @else {
+    // if the luminance is more than 0.5 return white
+    @return #ffffff;
+  }
+}
