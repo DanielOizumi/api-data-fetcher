@@ -6,6 +6,7 @@ class API_Data_Fetcher_API
 {
   private const API_URL = 'https://httpbin.org/post';
   private const TRANSIENT_KEY_BASE = 'adf_user_api_response_';
+  private const CHUNK_SIZE = 50; // Adjust the chunk size as needed
 
   public function get_or_fetch_user_data(int $user_id): array
   {
@@ -20,9 +21,9 @@ class API_Data_Fetcher_API
       return $this->generate_response(false, __('No list exists for this user', 'api-data-fetcher'));
     }
 
-    $cached_data = get_transient(self::TRANSIENT_KEY_BASE . $user_id);
+    $cached_data = $this->retrieve_from_chunks(self::TRANSIENT_KEY_BASE . $user_id);
 
-    if ($cached_data !== false && $this->data_is_equal($cached_data, $user_list)) {
+    if (!empty($cached_data) && $this->data_is_equal($cached_data, $user_list)) {
       return $this->generate_response(true, __('Data is the same, returning cached response', 'api-data-fetcher'), $cached_data);
     }
 
@@ -49,10 +50,10 @@ class API_Data_Fetcher_API
       return $this->generate_response(false, __('Invalid API response: JSON array missing or malformed', 'api-data-fetcher'));
     }
 
-    // Cache the valid API data
-    set_transient(self::TRANSIENT_KEY_BASE . $user_id, $api_data['json'], CACHE_EXPIRY);
+    // Cache the valid API data in chunks
+    $this->store_in_chunks(self::TRANSIENT_KEY_BASE . $user_id, $api_data['json']);
 
-    // Return the validated json data
+    // Return the validated JSON data
     return $this->generate_response(true, __('Data fetched and cached successfully', 'api-data-fetcher'), $api_data['json']);
   }
 
@@ -64,5 +65,43 @@ class API_Data_Fetcher_API
   private function data_is_equal(array $cached_data, array $user_list): bool
   {
     return serialize($cached_data) === serialize($user_list);
+  }
+
+  private function store_in_chunks(string $base_key, array $data): void
+  {
+    $chunks = array_chunk($data, self::CHUNK_SIZE);
+    foreach ($chunks as $index => $chunk) {
+      set_transient("{$base_key}_{$index}", $chunk, CACHE_EXPIRY);
+    }
+  }
+
+  private function retrieve_from_chunks(string $base_key): array
+  {
+    $data = [];
+    $index = 0;
+
+    while (true) {
+      $chunk = get_transient("{$base_key}_{$index}");
+      if ($chunk === false) {
+        break; // No more chunks
+      }
+      $data = array_merge($data, $chunk);
+      $index++;
+    }
+
+    return $data;
+  }
+
+  private function clear_chunks(string $base_key): void
+  {
+    $index = 0;
+
+    while (true) {
+      $key = "{$base_key}_{$index}";
+      if (!delete_transient($key)) {
+        break; // No more chunks to delete
+      }
+      $index++;
+    }
   }
 }
